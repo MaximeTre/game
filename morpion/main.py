@@ -75,8 +75,7 @@ def gestion_clic(x, y):
         jeu[ligne][colonne] = joueur
         if verifier_victoire():
             return True
-        else:
-            changer_joueur()
+        changer_joueur()
     return False
 
 # Fonction qui gére le déroulement du jeu
@@ -94,9 +93,16 @@ def jouer():
                     pygame.time.wait(500)
                     print(f"Le joueur {joueur} a gagné !")
                     gagne = True
-        
+                if est_plein():
+                    print("Match nul !")
+                    pygame.quit()
+                    sys.exit()
         afficher_grille()
         pygame.display.update()
+
+# Vérifie si le plateau est plein
+def est_plein():
+    return all(cell != '.' for row in jeu for cell in row)
 
 # On lance le jeux apres avoir défini toute l'algorythmie du jeux
 jouer()
